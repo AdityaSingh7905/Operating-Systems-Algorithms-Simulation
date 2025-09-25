@@ -1,33 +1,65 @@
 import { useState, useEffect, useRef } from "react";
 import PagingForm from "../../components/Paging/PagingForm";
 import PagingSnapshots from "../../components/Paging/PagingSnapshots";
-import PagingNavigation from "../../components/Paging/PagingNavigation";
+import PagingSummary from "../../components/Paging/PagingSummary";
 
 import { OptimalPolicy } from "../../algo/Paging/OP";
+import { parseRequests } from "../../utils/DiskUtils";
 
 const OPPagingSimulator = () => {
-  const [referenceString, setReferenceString] = useState("");
-  const [framesCount, setFramesCount] = useState("");
+  const [referenceString, setReferenceString] = useState(
+    "1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5"
+  );
+  const [framesCount, setFramesCount] = useState("3");
+
   const [snapshots, setSnapshots] = useState([]);
   const [pageFaults, setPageFaults] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   const lastSnapRef = useRef(null);
 
   const startSimulation = () => {
-    OptimalPolicy(referenceString, framesCount, setSnapshots, setPageFaults);
+    if (framesCount.trim().length === 0) {
+      alert("Please enter a valid frame number (between 2 and 5).");
+      return;
+    }
+    let frame = Number(framesCount);
+    if (Number.isNaN(frame) || frame < 2 || frame > 5) {
+      alert("please enter a valid frame number (between 2 and 5).");
+      return;
+    }
 
+    const req = parseRequests(referenceString);
+    // console.log("Requests: ", req);
+
+    if (req.length === 0) {
+      alert("Please enter a valid page requests!!");
+      return;
+    }
+
+    OptimalPolicy(req, Number(framesCount), setSnapshots, setPageFaults);
     setCurrentStepIndex(0);
     setIsComplete(false);
     setIsAutoPlaying(true);
+  };
+
+  const resetSimulation = () => {
+    setReferenceString("1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5");
+    setFramesCount("3");
+
+    setSnapshots([]);
+    setIsAutoPlaying(false);
+    setIsComplete(false);
   };
 
   useEffect(() => {
     if (lastSnapRef.current) {
       lastSnapRef.current.scrollIntoView({
         behavior: "smooth",
+        block: "nearest",
         inline: "center",
       });
     }
@@ -49,14 +81,19 @@ const OPPagingSimulator = () => {
   }, [currentStepIndex, isAutoPlaying, snapshots]);
 
   const handlePrev = () => {
-    setIsAutoPlaying(false);
+    // setIsAutoPlaying(false);
     if (currentStepIndex > 0) setCurrentStepIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    setIsAutoPlaying(false);
-    if (currentStepIndex < snapshots.length)
+    // setIsAutoPlaying(false);
+    if (currentStepIndex < snapshots.length) {
       setCurrentStepIndex((prev) => prev + 1);
+    }
+    if (currentStepIndex === snapshots.length - 1) {
+      setIsAutoPlaying(false);
+      setIsComplete(true);
+    }
   };
 
   return (
@@ -65,31 +102,31 @@ const OPPagingSimulator = () => {
         Optimal Policy Page Replacement Simulator
       </h1>
 
-      {/* Paging Form */}
       <PagingForm
         referenceString={referenceString}
         setReferenceString={setReferenceString}
         framesCount={framesCount}
         setFramesCount={setFramesCount}
         startSimulation={startSimulation}
+        resetSimulation={resetSimulation}
+        handlePrev={handlePrev}
+        handleNext={handleNext}
+        currentStepIndex={currentStepIndex}
+        snapShots={snapshots}
+        isAutoPlaying={isAutoPlaying}
       />
 
-      {/* Snapshots */}
       <PagingSnapshots
         snapshots={snapshots}
         currentStepIndex={currentStepIndex}
-        framesCount={framesCount}
+        framesCount={Number(framesCount)}
         lastSnapRef={lastSnapRef}
       />
 
-      {/* Navigation + Page Faults */}
-      {snapshots.length > 0 && isComplete && (
-        <PagingNavigation
-          snapshots={snapshots}
-          currentStepIndex={currentStepIndex}
+      {isComplete && snapshots.length > 0 && (
+        <PagingSummary
+          totalRequests={snapshots.length}
           pageFaults={pageFaults}
-          handleNext={handleNext}
-          handlePrev={handlePrev}
         />
       )}
     </div>

@@ -1,15 +1,4 @@
-export function FIFO(
-  referenceString,
-  framesCount,
-  setSnapshots,
-  setPageFaults
-) {
-  const refs = referenceString
-    .trim()
-    .split(/[\s+,]/)
-    .filter((x) => x !== "")
-    .map(Number);
-
+export function FIFO(refs, framesCount, setSnapshots, setPageFaults) {
   const frames = [];
   const steps = [];
   let faults = 0;

@@ -1,10 +1,4 @@
-export function MRU(referenceString, framesCount, setSnapshots, setPageFaults) {
-  const refs = referenceString
-    .trim()
-    .split(/[\s+,]/)
-    .filter((x) => x !== "")
-    .map(Number);
-
+export function MRU(refs, framesCount, setSnapshots, setPageFaults) {
   const frames = [];
   const steps = [];
   let faults = 0;
