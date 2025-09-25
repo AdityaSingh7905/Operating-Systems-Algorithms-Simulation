@@ -10,31 +10,56 @@ import { fcfs } from "../../algo/DiskScheduling/FCFS";
 
 export default function DiskFCFSPage() {
   const [requestsInput, setRequestsInput] = useState("82,170,43,140,24,16,190");
-  const [head, setHead] = useState(50);
+  const [head, setHead] = useState("50");
   const [requests, setRequests] = useState([]);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isStart, setIsStart] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const [sequence, setSequence] = useState([]);
+  const [totalMovement, setTotalMovement] = useState(0);
 
   // const requests = parseRequests(requestsInput);
 
   const runAlgo = () => {
+    if (head.trim().length === 0) {
+      alert("Please enter a valid head pointer!!");
+      return;
+    }
+    let headInt = Number(head);
+    if (Number.isNaN(headInt) || headInt < 0 || headInt > 199) {
+      alert("please enter a valid head pointer!!");
+      return;
+    }
     const req = parseRequests(requestsInput);
-    if (req.length === 0) return;
+    // console.log("Requests: ", req);
+
+    if (req.length === 0) {
+      alert("Please enter a valid request input!!");
+      return;
+    }
+
     setRequests(req);
+
+    const { sequence, totalMovement } = fcfs(Number(head), req);
+    setSequence(sequence);
+    setTotalMovement(totalMovement);
+
     setCurrentStep(0);
     setIsPlaying(true);
+    setIsStart(true);
     setIsCompleted(false);
   };
 
-  const { sequence, totalMovement } = fcfs(head, requests);
-  const data = sequence.map((cylinder, index) => ({ step: index, cylinder }));
-
-  useEffect(() => {
-    setCurrentStep(0);
-    setIsPlaying(false);
-  }, [head, requestsInput]);
+  const data =
+    sequence.length > 0
+      ? sequence.map((cylinder, index) => ({
+          step: index,
+          cylinder: cylinder,
+        }))
+      : [];
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -42,6 +67,7 @@ export default function DiskFCFSPage() {
       setCurrentStep((prev) => {
         if (prev >= sequence.length - 1) {
           setIsPlaying(false);
+          setIsStart(false);
           setIsCompleted(true);
           return prev;
         }
@@ -56,10 +82,15 @@ export default function DiskFCFSPage() {
     setCurrentStep(0);
     setIsPlaying(false);
     setIsCompleted(false);
+    setIsStart(false);
+    setSequence([]);
+    setTotalMovement(0);
   };
 
   const togglePlay = () => {
-    if (currentStep >= sequence.length - 1) setCurrentStep(0);
+    if (!isStart) {
+      return;
+    }
     setIsPlaying((p) => !p);
   };
 
@@ -71,24 +102,22 @@ export default function DiskFCFSPage() {
     }, 0);
 
   const currentCylinder =
-    data[Math.min(currentStep, data.length - 1)]?.cylinder ?? head;
+    data[Math.min(currentStep, data.length - 1)]?.cylinder ?? Number(head);
+
   const nextCylinder = data[currentStep + 1]?.cylinder;
+
   const distanceToNext =
     nextCylinder !== undefined ? Math.abs(nextCylinder - currentCylinder) : 0;
 
-  // The line only follows head up to current step (no jumping ahead)
   const completedData = data.slice(0, currentStep + 1);
 
   return (
     <div className="min-h-screen bg-gray-900 px-24 py-8">
-      {/* Heading */}
       <h1 className="text-3xl font-bold text-center mb-8 text-white">
         FCFS Disk Scheduling Algorithm
       </h1>
 
-      {/* Two-column layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left column → input + simulation buttons + summary */}
         <div className="space-y-6">
           <div className="bg-gray-800 rounded shadow p-4">
             <DiskInput
@@ -102,6 +131,7 @@ export default function DiskFCFSPage() {
               runAlgo={runAlgo}
               togglePlay={togglePlay}
               isPlaying={isPlaying}
+              isStart={isStart}
               resetAnimation={resetAnimation}
             />
           </div>
@@ -121,11 +151,14 @@ export default function DiskFCFSPage() {
           </div>
         </div>
 
-        {/* Right column → graph */}
         <div className="bg-gray-800 rounded shadow p-4">
           <DiskGraphPlot
-            completedData={completedData}
-            data={data}
+            completedData={
+              completedData.length
+                ? completedData
+                : [{ step: 0, cylinder: Number(head) }]
+            }
+            data={data.length ? data : [{ step: 0, cylinder: Number(head) }]}
             currentStep={currentStep}
           />
         </div>

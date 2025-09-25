@@ -1,4 +1,4 @@
-export default function look(head, requests) {
+export function look(head, requests) {
   let sequence = [];
   let totalMovement = 0;
   let current = head;

@@ -34,11 +34,11 @@ const DiskGraphPlot = ({ completedData, data, currentStep }) => {
           type="number"
           domain={[0, 12]}
           allowDecimals={false}
-          reversed={true} // ✅ flips Y so values grow downward
+          reversed={true} // flips Y so values grow downward
           label={{
             value: "Step (time)",
-            angle: -90,
             position: "insideLeft",
+            angle: -90,
           }}
         />
 

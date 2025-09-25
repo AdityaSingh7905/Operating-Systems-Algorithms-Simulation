@@ -1,10 +1,10 @@
 export const parseRequests = (s) => {
   const req = s
-    .trim()
-    .split(/[\s,]+/)
-    .filter(Boolean)
-    .map((x) => Number(x))
-    .filter((x) => Number.isFinite(x));
+    .trim() // removes leading and trailing spaces
+    .split(/[\s,]+/) // splits the string s into substrings by spaces or commas
+    .filter(Boolean) // removes any empty string
+    .map((x) => Number(x)) // convert each substring into a number
+    .filter((x) => Number.isFinite(x)); // removes any invalid number like isNaN etc.
   return req;
 };
 

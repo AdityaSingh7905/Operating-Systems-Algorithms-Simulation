@@ -1,4 +1,4 @@
-export default function scan(head, requests, diskSize) {
+export function scan(head, requests, diskSize = 200) {
   let sequence = [];
   let totalMovement = 0;
   let current = head;

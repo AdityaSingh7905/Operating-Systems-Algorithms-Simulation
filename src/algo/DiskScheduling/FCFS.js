@@ -1,4 +1,5 @@
 export function fcfs(head, requests) {
+  // safety check
   const sequence = [Number(head), ...requests.map((r) => Number(r))];
 
   let totalMovement = 0;

@@ -6,10 +6,12 @@ const DiskInput = ({ head, setHead, requestsInput, setRequestsInput }) => {
           Head [0 - 199]
         </label>
         <input
-          type="number"
+          type="text"
           value={head}
-          onChange={(e) => setHead(Number(e.target.value))}
+          placeholder="Eg: 50"
+          onChange={(e) => setHead(e.target.value)}
           className="mt-1 block w-full bg-gray-700 border-none rounded px-3 py-2 text-white"
+          required
         />
       </div>
 
@@ -21,8 +23,10 @@ const DiskInput = ({ head, setHead, requestsInput, setRequestsInput }) => {
           <input
             type="text"
             value={requestsInput}
+            placeholder="Eg: 82,170,43,140,24,16,190"
             onChange={(e) => setRequestsInput(e.target.value)}
             className="flex-1 border-none bg-gray-700 rounded px-3 py-2 text-white"
+            required
           />
         </div>
       </div>

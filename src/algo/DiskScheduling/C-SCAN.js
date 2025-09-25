@@ -1,4 +1,4 @@
-export default function cscan(head, requests, diskSize) {
+export function cscan(head, requests, diskSize = 200) {
   let sequence = [];
   let totalMovement = 0;
   let current = head;

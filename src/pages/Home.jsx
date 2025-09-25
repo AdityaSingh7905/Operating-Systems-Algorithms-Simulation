@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import FeedbackForm from "../utils/FeedbackForm";
 
 const algorithms = [
   { name: "CPU Scheduling Algorithms", path: "/cpu-scheduling" },
@@ -9,16 +9,6 @@ const algorithms = [
 ];
 
 const Home = () => {
-  const [feedback, setFeedback] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Feedback submitted:", feedback);
-    setSubmitted(true);
-    setFeedback("");
-  };
-
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       {/* Main Content */}
@@ -50,13 +40,17 @@ const Home = () => {
             <h2 className="text-xl font-semibold">Created by Aditya Singh</h2>
             <p>
               Email:{" "}
-              <a href="mailto:anshumansingh8825@gmail.com" className="text-blue-400">
+              <a
+                href="mailto:anshumansingh8825@gmail.com"
+                className="text-blue-400"
+              >
                 anshumansingh8825@gmail.com
               </a>
             </p>
             <p>
+              Connect with Me:{" "}
               <a
-                href="https://github.com/yourgithub"
+                href="https://github.com/AdityaSingh7905"
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-400"
@@ -65,7 +59,7 @@ const Home = () => {
               </a>{" "}
               |{" "}
               <a
-                href="https://linkedin.com/in/yourlinkedin"
+                href="https://www.linkedin.com/in/aditya-singh-28b450235"
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-400"
@@ -76,28 +70,7 @@ const Home = () => {
           </div>
 
           {/* Feedback Form */}
-          <form onSubmit={handleSubmit} className="mt-4">
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Share your feedback..."
-              className="w-full px-4 py-2 rounded-lg bg-gray-900 text-white focus:outline-none"
-              required
-            />
-            <button
-              type="submit"
-              className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition"
-            >
-              Submit Feedback
-            </button>
-          </form>
-
-          {/* Thank You Message */}
-          {submitted && (
-            <p className="text-green-400 mt-3">
-              ✅ Thank you for your feedback!
-            </p>
-          )}
+          <FeedbackForm />
         </div>
       </footer>
     </div>
