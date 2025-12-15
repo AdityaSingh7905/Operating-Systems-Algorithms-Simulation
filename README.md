@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# 🖥️ Operating System Algorithms Simulator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive **Operating System Algorithms Simulator** built to help understand and visualize core OS concepts such as **CPU Scheduling, Page Replacement, Disk Scheduling, and Deadlock Handling**.
 
-## Available Scripts
+This project provides an intuitive UI where users can experiment with different algorithms, inputs, and see how system behavior changes in real time.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🌐 Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🔗 Deployment Link:
+👉 [https://operating-systems-algorithms-simula.vercel.app](https://operating-systems-algorithms-simula.vercel.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🧠 CPU Scheduling Algorithms
+- First Come First Serve (FCFS)
+- Shortest Job First (SJF)
+- Shortest Remaining Time First (SRTF)
+- Priority Scheduling  
+  - Preemptive  
+  - Non-Preemptive
+- Round Robin (RR)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📄 Page Replacement Algorithms
+- FIFO (First In First Out)
+- Optimal Page Replacement
+- LRU (Least Recently Used)
+- MRU (Most Recently Used)
+- LFU (Least Frequently Used)
+- MFU (Most Frequently Used)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 💽 Disk Scheduling Algorithms
+- FCFS
+- SSTF (Shortest Seek Time First)
+- SCAN
+- C-SCAN
+- LOOK
+- C-LOOK
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🔒 Deadlock Algorithms
+- Banker’s Algorithm
+- Deadlock Detection Algorithm
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### ✨ Additional Highlights
+- Interactive and responsive UI
+- Real-time visualization of algorithm behavior
+- User-friendly input forms
+- Feedback system integrated using **EmailJS**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 🎨 User Experience
+- Clean and responsive UI built with Tailwind CSS
+- Interactive inputs and real-time outputs
+- Easy-to-understand visual representation of algorithms
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 📬 Feedback System
+- Integrated EmailJS for collecting user feedback directly from the application
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🛠️ Tech Stack
 
-### Analyzing the Bundle Size
+### Frontend
+- **React.js**
+- **JavaScript**
+- **Tailwind CSS**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Other Tools
+- **EmailJS** – for collecting user feedback
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📦 Run Locally
+Follow these steps to run the project on your local machine:
 
-### Advanced Configuration
+### Clone the repository
+```bash
+git clone https://github.com/AdityaSingh7905/Operating-Systems-Algorithms-Simulation.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Navigate to project directory
+```bash
+cd Operating-Systems-Algorithms-Simulation
+```
 
-### Deployment
+### Install dependencies
+```bash
+npm install
+```
+### Create .env.local file:
+```bash
+REACT_APP_EMAILJS_SERVICE_ID=your_service_id
+REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
+REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Start the development server
+```bash
+npm start
+```
 
-### `npm run build` fails to minify
+### The app will run at:
+```bash
+http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🤝 Contributing
+- Contributions are welcome!
+- Feel free to fork this repository, raise issues, or submit pull requests.
+
+---
+
+## 📬 Feedback
+- Feedback is highly appreciated!
+- You can directly send feedback through the integrated EmailJS system in the application.
