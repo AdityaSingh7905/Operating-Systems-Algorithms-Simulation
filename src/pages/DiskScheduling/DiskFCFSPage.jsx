@@ -85,6 +85,8 @@ export default function DiskFCFSPage() {
     setIsStart(false);
     setSequence([]);
     setTotalMovement(0);
+    setRequestsInput("82,170,43,140,24,16,190");
+    setHead("50");
   };
 
   const togglePlay = () => {
